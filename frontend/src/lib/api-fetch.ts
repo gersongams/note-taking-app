@@ -29,12 +29,6 @@ export async function apiFetch<T = unknown>(
     ? endpoint
     : `${API_URL}${endpoint.startsWith("/") ? "" : "/"}${endpoint}`;
 
-  // DEBUG: Log the full URL being called
-  console.log(`[API_FETCH] Calling endpoint: ${endpoint}`);
-  console.log(`[API_FETCH] API_URL: ${API_URL}`);
-  console.log(`[API_FETCH] Full URL: ${url}`);
-  console.log(`[API_FETCH] Method: ${fetchOptions.method || 'GET'}`);
-
   // Get auth headers if required
   const authHeaders = requireAuth ? await getAuthHeaders() : {};
 

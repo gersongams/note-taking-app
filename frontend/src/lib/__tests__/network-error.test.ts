@@ -1,8 +1,5 @@
 import { describe, expect, it } from "vitest";
-import {
-  createNetworkError,
-  isNetworkError,
-} from "@/lib/network-error";
+import { createNetworkError, isNetworkError } from "@/lib/network-error";
 
 describe("network error helpers", () => {
   it("marks errors created via helper as network errors", () => {

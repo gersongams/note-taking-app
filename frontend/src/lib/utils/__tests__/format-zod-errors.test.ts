@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { ZodError, z } from "zod";
+import { type ZodError, z } from "zod";
 import { formatZodErrors } from "@/lib/utils/format-zod-errors";
 
 describe("formatZodErrors", () => {
