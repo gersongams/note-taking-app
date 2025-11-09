@@ -1,0 +1,159 @@
+[project]
+name = "notes-backend"
+version = "0.1.0"
+description = "Notes Backend API"
+requires-python = ">=3.11"
+dependencies = [
+    # Core Django packages
+    "Django",
+    "djangorestframework",
+    "django-cors-headers",
+    # Database
+    "psycopg2-binary",
+    # Authentication
+    "djangorestframework-simplejwt",
+    # API Documentation
+    "drf-spectacular",
+    "django-filter",
+    # Environment management
+    "python-decouple",
+    # Utilities
+    "python-slugify",
+]
+
+[project.optional-dependencies]
+dev = [
+    # Development tools
+    "django-debug-toolbar",
+    "django-extensions",
+    # Code quality
+    "flake8",
+    "black",
+    "isort",
+    "pre-commit",
+    # Testing
+    "pytest",
+    "pytest-django",
+    "pytest-cov",
+    "pytest-mock",
+    "pytest-xdist",
+    "factory-boy",
+    "faker",
+    "coverage[toml]",
+    "requests-mock",
+    # Documentation
+    "Sphinx",
+]
+
+prod = [
+    # Production server
+    "gunicorn",
+    # Security
+    "django-security",
+    # Logging
+    "sentry-sdk",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["apps", "config"]
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+  | migrations
+)/
+'''
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+known_django = "django"
+known_first_party = "apps,config"
+sections = ["FUTURE","STDLIB","DJANGO","THIRDPARTY","FIRSTPARTY","LOCALFOLDER"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings.testing"
+python_files = ["tests.py", "test_*.py", "*_tests.py"]
+addopts = [
+    "--verbose",
+    "--tb=short",
+    "--strict-markers",
+    "--disable-warnings",
+    "--reuse-db",
+]
+markers = [
+    "slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+
+[tool.coverage.run]
+source = ["apps"]
+omit = [
+    "*/migrations/*",
+    "*/tests/*",
+    "*/venv/*",
+    "*/env/*",
+    "manage.py",
+    "config/wsgi.py",
+    "config/asgi.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    'class .*\bProtocol\):',
+    '@(abc\.)?abstractmethod',
+]
+
+[tool.uv]
+dev-dependencies = [
+    # Development tools
+    "django-debug-toolbar",
+    "django-extensions",
+    # Code quality
+    "flake8",
+    "black",
+    "isort",
+    "pre-commit",
+    # Testing
+    "pytest",
+    "pytest-django",
+    "pytest-cov",
+    "pytest-mock",
+    "pytest-xdist",
+    "factory-boy",
+    "faker",
+    "coverage[toml]",
+    "requests-mock",
+    # Documentation
+    "Sphinx",
+]
