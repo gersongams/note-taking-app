@@ -42,7 +42,9 @@ docker compose up --build
 Access the application:
 - Frontend: http://localhost:3000
 - Backend API: http://localhost:8000
-- API Docs: http://localhost:8000/api/schema/swagger-ui/
+- API Docs (Swagger UI): http://localhost:8000/api/docs/
+- API Docs (ReDoc): http://localhost:8000/api/redoc/
+- OpenAPI Schema: http://localhost:8000/api/schema/
 
 ### Manual Backend Setup (without Docker)
 ```bash
@@ -91,7 +93,7 @@ docker compose down -v
 
 ## Testing and Coverage
 - **Make Targets**: `make test`, `make backend-test`, `make frontend-test`, `make test-coverage`.
-- **Backend**: `pytest --cov=apps --cov-report=html` (current coverage 89 percent, 32 tests, gaps limited to serializer edge cases, admin wire-ups, and the seed command).
+- **Backend**: `pytest --cov=apps --cov-report=html` (current coverage 100%, 41 tests covering all authentication, notes CRUD, models, serializers, and management commands).
 - **Frontend Unit/Integration**: `npm test`, `npm run lint`, `npm run format`.
 - **Playwright E2E** (frontend/e2e):
   - `npm run test:e2e`
@@ -119,7 +121,7 @@ docker compose down -v
 ## Backend Implementation Notes
 - Apps: `authentication`, `notes`, and `core` sit under `backend/apps`. Configuration in `backend/config` separates environment-specific settings.
 - Environment variables (database, Django, JWT, CORS) live in `.env`; defaults are provided in the sample file.
-- API documentation: Swagger UI at `http://localhost:8000/api/schema/swagger-ui/`, ReDoc at `/api/schema/redoc/`, and the raw schema at `/api/schema/`.
+- API documentation: Swagger UI at `http://localhost:8000/api/docs/`, ReDoc at `http://localhost:8000/api/redoc/`, and the raw OpenAPI schema at `http://localhost:8000/api/schema/`.
 - Docker images use the uv-based Dockerfile for faster, reproducible builds; run with `docker build -t notes-backend .` and `docker run -p 8000:8000 --env-file .env notes-backend`.
 
 ## AI Tool Usage
