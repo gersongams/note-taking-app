@@ -1,8 +1,9 @@
-from django.db import migrations, models
+import uuid
+
 import django.contrib.auth.models
 import django.contrib.auth.validators
 import django.utils.timezone
-import uuid
+from django.db import migrations, models
 
 
 class Migration(migrations.Migration):

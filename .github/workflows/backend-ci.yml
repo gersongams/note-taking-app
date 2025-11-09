@@ -38,14 +38,14 @@ jobs:
       uses: actions/setup-python@v6
       with:
         python-version: '3.12'
-        cache: 'pip'
-        cache-dependency-path: backend/requirements/testing.txt
+
+    - name: Install uv
+      run: curl -LsSf https://astral.sh/uv/install.sh | sh
 
     - name: Install dependencies
       working-directory: ./backend
       run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements/testing.txt
+        uv pip install --system -e ".[dev]"
 
     - name: Run tests
       working-directory: ./backend
@@ -78,11 +78,13 @@ jobs:
       with:
         python-version: '3.12'
 
+    - name: Install uv
+      run: curl -LsSf https://astral.sh/uv/install.sh | sh
+
     - name: Install dependencies
       working-directory: ./backend
       run: |
-        python -m pip install --upgrade pip
-        pip install flake8 black isort
+        uv pip install --system flake8 black isort
 
     - name: Run linting
       working-directory: ./backend
